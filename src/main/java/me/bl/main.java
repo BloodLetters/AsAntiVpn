@@ -86,7 +86,7 @@ public final class main extends JavaPlugin implements Listener {
 
 
     public static void main(String[] args) {
-        System.out.println("AWDIJIAWJD");
+        System.out.println("awokawok");
     }
 
     public main() {
