@@ -1,0 +1,27 @@
+Api-Key: ""
+# you must register in https://proxycheck.io
+# and place Api key in above. Example: Api-Key: "adbawdsa-121dwdasacv-12dqw"
+
+Discord:
+  Enable: false
+  Link: ""
+# To use this place your Discord Webhook in Link: "Here"
+# to get Discord webhook
+# 1). go to channel integration of your discord channel
+# 2). Click on view Webhook
+# 3). new webhook and click "Copy webhook url"
+# 4). place to Link: "Here"
+
+Whitelist-IP:
+  - 127.0.0.1
+# place this you want to whitelist!
+
+Blacklist:
+  Enable: true
+# Enable: automatic add vpn ip to blacklist.yml when player join using vpn
+# Disable: nothing to do. and make this plugin kinda useless. trust me
+
+Message:
+  Kick-Message: "&7[&c!&7] &cDont use vpn!"
+  Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
+  NoPermission: "&7[&c!&7] &cSorry you dont have accesss"

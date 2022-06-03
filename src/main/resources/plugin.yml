@@ -1,0 +1,9 @@
+name: AsAntiVpn
+version: '${project.version}'
+main: me.bl.main
+api-version: 1.18
+authors: [ Aril4511 ]
+description: Simple lightweight Anti Vpn!
+commands:
+  AsAntiVpn:
+    permission: asantivpn.use
