@@ -41,7 +41,7 @@ public class IpApi {
                 JsonElement raw = jsonObjectv1.get("country");
                 return raw.getAsString();
 
-            // api limite
+                // api limite
             } else {
 
                 main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Api-Limit").replace("%player-ip%", ip)));
