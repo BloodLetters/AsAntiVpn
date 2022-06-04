@@ -27,8 +27,9 @@ Blacklist:
 # Disable: nothing to do. and make this plugin kinda useless. trust me
 
 Message:
+  NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
-  NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
   Whitelist-player-Message: "&e%player% &7Bypass AntiVpn from config!"
   Whitelist-ip-Message: "&e%player-ip% &7Bypass AntiVpn from config!"
+  Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"
