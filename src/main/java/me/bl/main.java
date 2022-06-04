@@ -2,6 +2,7 @@ package me.bl;
 
 import me.bl.Event.Command;
 import me.bl.Event.PreJoin;
+import me.bl.Event.TabComplete;
 import me.bl.Utils.VersionChecker;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -25,6 +26,7 @@ public final class main extends JavaPlugin implements Listener {
         getLogger().info("Register All Event");
         getServer().getPluginManager().registerEvents(new PreJoin(), this);
         getCommand("AsAntiVpn").setExecutor(new Command());
+        getCommand("AsAntiVpn").setTabCompleter(new TabComplete());
 
         getLogger().info("Saving default config");
         saveDefaultConfig();
@@ -82,11 +84,6 @@ public final class main extends JavaPlugin implements Listener {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println("awokawok");
     }
 
     public main() {

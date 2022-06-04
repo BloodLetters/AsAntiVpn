@@ -2,6 +2,7 @@ package me.bl.Event;
 
 import me.bl.Service.ProxyCheck;
 import me.bl.Utils.Blacklist;
+import me.bl.Utils.Warna;
 import me.bl.Utils.WebhookHandler;
 import me.bl.main;
 import org.bukkit.ChatColor;
@@ -21,15 +22,23 @@ public class PreJoin implements Listener {
     public void onJoin(AsyncPlayerPreLoginEvent e) throws IOException {
         ip = e.getAddress().getHostAddress();
 
-        // checking whitelist player
-        if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
-            main.getInstance().getLogger().info(">> " + e.getName() + " with ip " + ip + " whitelist in config!");
+        // checking whitelist player name
+        if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
+
+            main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player%", e.getName())));
+
+        // checking whitelist player ip
+        } else if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
+
+            main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
 
         } else {
 
-            // chacking blacklist player
+            // checking blacklist player
             if (main.getInstance().getCustomConfig().getStringList("Blacklist").contains(ip)) {
+
                 e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Blacklist-Message"))));
+
             } else {
 
                 // checking the vpn player

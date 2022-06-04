@@ -16,6 +16,11 @@ Whitelist-IP:
   - 127.0.0.1
 # place this you want to whitelist!
 
+Whitelist-Player:
+  - derp
+  - coolestderp
+# place your staff name in here
+
 Blacklist:
   Enable: true
 # Enable: automatic add vpn ip to blacklist.yml when player join using vpn
@@ -25,3 +30,5 @@ Message:
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
   NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
+  Whitelist-player-Message: "&e%player% &7Bypass AntiVpn from config!"
+  Whitelist-ip-Message: "&e%player-ip% &7Bypass AntiVpn from config!"
