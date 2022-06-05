@@ -1,5 +1,6 @@
 package me.bl.Event;
 
+import me.bl.Service.IpApi;
 import me.bl.Service.ProxyCheck;
 import me.bl.Utils.Blacklist;
 import me.bl.Utils.Warna;
@@ -17,10 +18,12 @@ import java.util.Objects;
 public class PreJoin implements Listener {
 
     public static String ip;
+    public static String country;
 
     @EventHandler
     public void onJoin(AsyncPlayerPreLoginEvent e) throws IOException {
         ip = e.getAddress().getHostAddress();
+        country = IpApi.getCountry(e.getAddress().getHostAddress());
 
         // checking whitelist player name
         if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
@@ -76,6 +79,12 @@ public class PreJoin implements Listener {
                     main.getInstance().getServer().getLogger().severe("[AsAntiVpn] >> Your token is none. setup it first to use AsAntiVpn");
                 }
             }
+        }
+
+
+        // check user country
+        if (main.getInstance().getConfig().getBoolean("Country.Enable")) {
+            main.getInstance().getServer().broadcastMessage(Warna.color(main.getInstance().getConfig().getString("Country.Broadcast").replace("%player%", e.getName()).replace("%country%", country)));
         }
     }
 }

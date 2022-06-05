@@ -21,6 +21,11 @@ Whitelist-Player:
   - coolestderp
 # place your staff name in here
 
+Country:
+  Enable: false
+  Broadcast: "&7[&eAntiVpn&7] &7>> &e%player% &7join from &e%country%"
+# broadcasting user country
+
 Blacklist:
   Enable: true
 # Enable: automatic add vpn ip to blacklist.yml when player join using vpn
