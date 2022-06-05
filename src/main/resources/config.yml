@@ -26,15 +26,30 @@ Country:
   Broadcast: "&7[&eAntiVpn&7] &7>> &e%player% &7join from &e%country%"
 # broadcasting user country
 
+Blacklist-Country:
+  Enable: false
+  Country-List:
+  # - japan
+  # - canada
+  # - china
+# Must in LowerCase!.
+# if not in LowerCase this options will not working!
+
 Blacklist:
   Enable: true
 # Enable: automatic add vpn ip to blacklist.yml when player join using vpn
 # Disable: nothing to do. and make this plugin kinda useless. trust me
 
 Message:
+  # permission
   NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
+
+  # kick message
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
   Whitelist-player-Message: "&e%player% &7Bypass AntiVpn from config!"
   Whitelist-ip-Message: "&e%player-ip% &7Bypass AntiVpn from config!"
+  Country-Blacklist: "&7[&c!&7] &cSorry your country not allowed in this server!"
+
+  # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"

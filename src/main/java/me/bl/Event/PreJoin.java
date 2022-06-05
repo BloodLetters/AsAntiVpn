@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
-import org.bukkit.event.player.PlayerPreLoginEvent;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -23,68 +22,76 @@ public class PreJoin implements Listener {
     @EventHandler
     public void onJoin(AsyncPlayerPreLoginEvent e) throws IOException {
         ip = e.getAddress().getHostAddress();
-        country = IpApi.getCountry(e.getAddress().getHostAddress());
+        country = Objects.requireNonNull(IpApi.getCountry(e.getAddress().getHostAddress())).toLowerCase();
 
-        // checking whitelist player name
-        if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
+        // country checker
+        if (main.getInstance().getConfig().getStringList("Blacklist-Country.Country-List").contains(country.toLowerCase())) {
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Warna.color(main.getInstance().getConfig().getString("Message.Country-Blacklist")));
 
-            main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player%", e.getName())));
+        // check user country
+        } else if (main.getInstance().getConfig().getBoolean("Country.Enable")) {
 
-        // checking whitelist player ip
-        } else if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
+            // broadcast message
+            main.getInstance().getServer().broadcastMessage(Warna.color(main.getInstance().getConfig().getString("Country.Broadcast").replace("%player%", e.getName()).replace("%country%", country)));
 
-            main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
 
-        } else {
+        }else {
 
-            // checking blacklist player
-            if (main.getInstance().getCustomConfig().getStringList("Blacklist").contains(ip)) {
+            // checking whitelist player name
+            if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
 
-                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Blacklist-Message"))));
+                main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player%", e.getName())));
+
+                // checking whitelist player ip
+            } else if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
+
+                main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
 
             } else {
 
-                // checking the vpn player
-                if (!Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Key")).isEmpty()) {
+                // checking blacklist player
+                if (main.getInstance().getCustomConfig().getStringList("Blacklist").contains(ip)) {
 
-                    if (ProxyCheck.Use(ip)) {
+                    e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Blacklist-Message"))));
 
-                        // VPN user!
-                        main.getInstance().getServer().getLogger().info("[AsAntiVpn] >> Player " + e.getName() + " With ip " + ip + " using VPN");
-                        e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Kick-Message"))));
-
-                        // save user ip to Blacklist config
-                        if (main.getInstance().getConfig().getBoolean("Blacklist.Enable")) {
-                            Blacklist.write(ip);
-                        }
-
-                        // Discord webhook
-                        if (main.getInstance().getConfig().getBoolean("Discord.Enable")) {
-                            if (main.getInstance().getConfig().getString("Discord.Link").isEmpty()) {
-                                main.getInstance().getLogger().info("Webhook Link not found!");
-                            } else {
-                                WebhookHandler.Webhook(main.getInstance().getConfig().getString("Discord.Link"), e.getName());
-                            }
-                        }
-
-                    } else {
-
-                        // Non VPN user
-                        main.getInstance().getServer().getLogger().info("[AsAntiVpn] >> Player " + e.getName() + " With ip " + ip + " Not using any VPN");
-
-                    }
                 } else {
 
-                    // if api-key is none
-                    main.getInstance().getServer().getLogger().severe("[AsAntiVpn] >> Your token is none. setup it first to use AsAntiVpn");
+                    // checking the vpn player
+                    if (!Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Key")).isEmpty()) {
+
+                        if (ProxyCheck.Use(ip)) {
+
+                            // VPN user!
+                            main.getInstance().getServer().getLogger().info("[AsAntiVpn] >> Player " + e.getName() + " With ip " + ip + " using VPN");
+                            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Kick-Message"))));
+
+                            // save user ip to Blacklist config
+                            if (main.getInstance().getConfig().getBoolean("Blacklist.Enable")) {
+                                Blacklist.write(ip);
+                            }
+
+                            // Discord webhook
+                            if (main.getInstance().getConfig().getBoolean("Discord.Enable")) {
+                                if (main.getInstance().getConfig().getString("Discord.Link").isEmpty()) {
+                                    main.getInstance().getLogger().info("Webhook Link not found!");
+                                } else {
+                                    WebhookHandler.Webhook(main.getInstance().getConfig().getString("Discord.Link"), e.getName());
+                                }
+                            }
+
+                        } else {
+
+                            // Non VPN user
+                            main.getInstance().getServer().getLogger().info("[AsAntiVpn] >> Player " + e.getName() + " With ip " + ip + " Not using any VPN");
+
+                        }
+                    } else {
+
+                        // if api-key is none
+                        main.getInstance().getServer().getLogger().severe("[AsAntiVpn] >> Your token is none. setup it first to use AsAntiVpn");
+                    }
                 }
             }
-        }
-
-
-        // check user country
-        if (main.getInstance().getConfig().getBoolean("Country.Enable")) {
-            main.getInstance().getServer().broadcastMessage(Warna.color(main.getInstance().getConfig().getString("Country.Broadcast").replace("%player%", e.getName()).replace("%country%", country)));
         }
     }
 }
