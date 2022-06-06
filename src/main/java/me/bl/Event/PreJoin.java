@@ -1,5 +1,7 @@
 package me.bl.Event;
 
+import com.viaversion.viaversion.api.Via;
+import com.viaversion.viaversion.api.ViaAPI;
 import me.bl.Service.IpApi;
 import me.bl.Service.ProxyCheck;
 import me.bl.Utils.Blacklist;
@@ -18,11 +20,18 @@ public class PreJoin implements Listener {
 
     public static String ip;
     public static String country;
+    public static String name;
+
+    public static int protocolVersion;
 
     @EventHandler
     public void onJoin(AsyncPlayerPreLoginEvent e) throws IOException {
         ip = e.getAddress().getHostAddress();
         country = Objects.requireNonNull(IpApi.getCountry(e.getAddress().getHostAddress())).toLowerCase();
+        name = e.getName();
+
+        // get protocol version
+        protocolVersion = Via.getAPI().getPlayerVersion(e.getUniqueId());
 
         // country checker
         if (main.getInstance().getConfig().getStringList("Blacklist-Country.Country-List").contains(country.toLowerCase())) {

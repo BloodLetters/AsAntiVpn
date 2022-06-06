@@ -4,6 +4,7 @@ import me.bl.Event.Command;
 import me.bl.Event.PreJoin;
 import me.bl.Event.TabComplete;
 import me.bl.Utils.VersionChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -55,6 +56,20 @@ public final class main extends JavaPlugin implements Listener {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        // checking dependency
+        getLogger().info("Checking All dependency");
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+           getLogger().info("Softdepency PlaceholderAPI detected!");
+        } else {
+            getLogger().info("Softdepency PlaceholderAPI not detected!");
+        }
+
+        if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
+            getLogger().info("Softdepency ViaVersion detected!");
+        } else {
+            getLogger().info("Softdepency ViaVersion not detected!");
         }
     }
 
