@@ -1,11 +1,15 @@
 package me.bl.Event;
 
+import me.bl.Service.IpApi;
+import me.bl.Service.ProxyCheck;
 import me.bl.Utils.Blacklist;
 import me.bl.Utils.Warna;
 import me.bl.main;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -65,11 +69,11 @@ public class Command implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("add")) {
                 if (sender.hasPermission("asantivpn.add")) {
                     if (args.length == 1) {
-                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Add")));
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Blacklist.Ip-Add")));
                     } else if (args.length == 2) {
                         try {
                             Blacklist.write(args[1]);
-                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Add-Success").replace("%player-ip%", args[1])));
+                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Blacklist.Ip-Add-Success").replace("%player-ip%", args[1])));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -81,13 +85,42 @@ public class Command implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("remove")) {
                 if (sender.hasPermission("asantivpn.add")) {
                     if (args.length == 1) {
-                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Remove")));
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Blacklist.Ip-Remove")));
                     } else if (args.length == 2) {
                         try {
                             Blacklist.remove(args[1]);
-                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Remove-Success").replace("%player-ip%", args[1])));
+                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message." +
+                                    "Message.Blacklist.Ip-Remove-Success").replace("%player-ip%", args[1])));
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            // inspect command
+            else if (args[0].equalsIgnoreCase("inspect")) {
+                if (sender.hasPermission("asantivpn.inspect")) {
+                    if (args.length == 1) {
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Inspect")));
+                    } else if (args.length == 2) {
+                        Player t = Bukkit.getPlayer(args[1]);
+                        if (t != null){
+                            try {
+                                String ip = Objects.requireNonNull(t.getAddress()).getHostName();
+                                String country = IpApi.getCountry(ip);
+
+                                sender.sendMessage("&7&m--------------------");
+                                sender.sendMessage("");
+                                sender.sendMessage(" &7- &eIP: &b" + ip);
+                                sender.sendMessage(" &7- &eCountry: &b" + country);
+                                sender.sendMessage(" &7- &eIsVpn: &b" + ProxyCheck.Use(ip));
+                                sender.sendMessage("");
+                                sender.sendMessage("&7&m---------------------");
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

@@ -40,7 +40,6 @@ Kick-Algorithm:
 
 
 
-
 Blacklist:
   Enable: true
 # Enable: automatic add vpn ip to blacklist.yml when player join using vpn
@@ -54,6 +53,7 @@ Message:
     Ip-Add-Success: "&aSuccess to add &e%player-ip%"
     Ip-Remove: "&cIncorrect CMD!. example: &a/AsAntiVpn remove 1.1.1.1"
     Ip-Remove-Success: "&aSuccess to remove &e%player-ip%"
+  Inspect: "&cIncorrect CMD!. example: &a/AsAntiVpn inspect titidsapi"
 
   # kick message
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
