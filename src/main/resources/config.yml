@@ -41,8 +41,13 @@ Blacklist:
 # Disable: nothing to do. and make this plugin kinda useless. trust me
 
 Message:
-  # permission
+  # permission & Command
   NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
+  Blacklist:
+    Ip-Add: "&cIncorrect CMD!. example: &a/AsAntiVpn add 1.1.1.1"
+    Ip-Add-Success: "&aSuccess to add &e%player-ip%"
+    Ip-Remove: "&cIncorrect CMD!. example: &a/AsAntiVpn remove 1.1.1.1"
+    Ip-Remove-Success: "&aSuccess to remove &e%player-ip%"
 
   # kick message
   Kick-Message: "&7[&c!&7] &cDont use vpn!"

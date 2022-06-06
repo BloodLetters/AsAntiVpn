@@ -65,11 +65,11 @@ public class Command implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("add")) {
                 if (sender.hasPermission("asantivpn.add")) {
                     if (args.length == 1) {
-                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &cIncorrect CMD!. example: &a/AsAntiVpn add 1.1.1.1"));
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Add")));
                     } else if (args.length == 2) {
                         try {
                             Blacklist.write(args[1]);
-                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &aSuccess to add &e" + args[1]));
+                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Add-Success").replace("%player-ip%", args[1])));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -81,11 +81,11 @@ public class Command implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("remove")) {
                 if (sender.hasPermission("asantivpn.add")) {
                     if (args.length == 1) {
-                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &cIncorrect CMD!. example: &a/AsAntiVpn remove 1.1.1.1"));
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Remove")));
                     } else if (args.length == 2) {
                         try {
                             Blacklist.remove(args[1]);
-                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &aSuccess to remove &e" + args[1]));
+                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Blacklist.Ip-Remove-Success").replace("%player-ip%", args[1])));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
