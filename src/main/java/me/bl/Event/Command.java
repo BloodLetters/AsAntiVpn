@@ -110,17 +110,19 @@ public class Command implements CommandExecutor {
                                 String ip = Objects.requireNonNull(t.getAddress()).getHostName();
                                 String country = IpApi.getCountry(ip);
 
-                                sender.sendMessage("&7&m--------------------");
+                                sender.sendMessage(Warna.color("&7&m--------------------"));
                                 sender.sendMessage("");
-                                sender.sendMessage(" &7- &eIP: &b" + ip);
-                                sender.sendMessage(" &7- &eCountry: &b" + country);
-                                sender.sendMessage(" &7- &eIsVpn: &b" + ProxyCheck.Use(ip));
+                                sender.sendMessage(Warna.color(" &7- &eIP: &b" + ip));
+                                sender.sendMessage(Warna.color(" &7- &eCountry: &b" + country));
+                                sender.sendMessage(Warna.color(" &7- &eIsVpn: &b" + ProxyCheck.Use(ip)));
                                 sender.sendMessage("");
-                                sender.sendMessage("&7&m---------------------");
+                                sender.sendMessage(Warna.color("&7&m---------------------"));
 
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                        } else {
+                            sender.sendMessage(Warna.color("&7[&c!&7] &cPlayer " + args[1] + " not found!"));
                         }
                     }
                 }
