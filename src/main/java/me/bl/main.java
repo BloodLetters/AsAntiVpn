@@ -25,7 +25,10 @@ public final class main extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("Register All Event");
+
+
         getServer().getPluginManager().registerEvents(new PreJoin(), this);
+
         getCommand("AsAntiVpn").setExecutor(new Command());
         getCommand("AsAntiVpn").setTabCompleter(new TabComplete());
 

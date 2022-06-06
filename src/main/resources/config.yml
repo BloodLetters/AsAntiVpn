@@ -35,6 +35,12 @@ Blacklist-Country:
 # Must in LowerCase!.
 # if not in LowerCase this options will not working!
 
+Kick-Algorithm:
+  Slow-Join-Tick: 20 # tick. 1 second = 20 tick
+
+
+
+
 Blacklist:
   Enable: true
 # Enable: automatic add vpn ip to blacklist.yml when player join using vpn
@@ -55,6 +61,7 @@ Message:
   Whitelist-player-Message: "&e%player% &7Bypass AntiVpn from config!"
   Whitelist-ip-Message: "&e%player-ip% &7Bypass AntiVpn from config!"
   Country-Blacklist: "&7[&c!&7] &cSorry your country not allowed in this server!"
+  Max-join-reach: "&7[&eGuard&7] &cReconect after a second. much connection has detected!"
 
   # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"
