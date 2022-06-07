@@ -62,10 +62,10 @@ Message:
   # kick message
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
-  Whitelist-player-Message: "&e%player% &7Bypass AntiVpn from config!"
-  Whitelist-ip-Message: "&e%player-ip% &7Bypass AntiVpn from config!"
+  Whitelist-player-Message: "%player% Bypass AntiVpn from config!"
+  Whitelist-ip-Message: "%player-ip% Bypass AntiVpn from config!"
   Country-Blacklist: "&7[&c!&7] &cSorry your country not allowed in this server!"
-  Max-join-reach: "&7[&eGuard&7] &cReconect after a second. much connection has detected!"
+  Max-join-reach: "&7[&eGuard&7] &cReconect after a %time% tick. much connection has detected!"
 
   # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"

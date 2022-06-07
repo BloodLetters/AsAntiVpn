@@ -10,6 +10,7 @@ import me.bl.main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
@@ -26,7 +27,8 @@ public class PreJoin implements Listener {
     private static boolean ready = true;
     public static int MJPS = main.getInstance().getConfig().getInt("Kick-Algorithm.Slow-Join-Tick");
 
-    @EventHandler
+
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onJoin(AsyncPlayerPreLoginEvent e) throws IOException {
         ip = e.getAddress().getHostAddress();
         country = Objects.requireNonNull(IpApi.getCountry(e.getAddress().getHostAddress())).toLowerCase();
@@ -59,12 +61,12 @@ public class PreJoin implements Listener {
                 // checking whitelist player name
                 if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
 
-                    main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player%", e.getName())));
+                    main.getInstance().getLogger().info(main.getInstance().getConfig().getString(("Message.Whitelist-player-Message").replace("%player%", e.getName())));
 
                     // checking whitelist player ip
                 } else if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
 
-                    main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
+                    main.getInstance().getLogger().info(main.getInstance().getConfig().getString(("Message.Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
 
                 } else {
 
@@ -113,7 +115,7 @@ public class PreJoin implements Listener {
                 }
             }
         } else {
-            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Too many connections...");
+            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Warna.color(main.getInstance().getConfig().getString("Message.Max-join-reach").replace("%time%", String.valueOf(main.getInstance().getConfig().getString("Kick-Algorithm.Slow-Join-Tick")))));
         }
     }
 }
