@@ -1,3 +1,7 @@
+#
+# Complete config docs in https://github.com/BloodLetters/AsAntiVpn-Document/wiki/AsAntiVpn-Setup
+#
+
 Api-Key: ""
 # you must register in https://proxycheck.io
 # and place Api key in above. Example: Api-Key: "adbawdsa-121dwdasacv-12dqw"
@@ -36,7 +40,7 @@ Blacklist-Country:
 # if not in LowerCase this options will not working!
 
 Kick-Algorithm:
-  Slow-Join-Tick: 20 # tick. 1 second = 20 tick
+  Slow-Join-Tick: 5 # tick. 1 second = 20 tick
 
 
 

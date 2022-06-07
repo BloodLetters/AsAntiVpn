@@ -1,7 +1,9 @@
 package me.bl.Dependency.Soft;
 
 import me.bl.Event.PreJoin;
+import me.bl.main;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 public class PlaceholderApi extends PlaceholderExpansion {
@@ -36,11 +38,19 @@ public class PlaceholderApi extends PlaceholderExpansion {
         }
 
         if(params.equalsIgnoreCase("protocolversion")) {
-            return String.valueOf(PreJoin.protocolVersion);
+            if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
+                return String.valueOf(PreJoin.protocolVersion);
+            } else {
+                return null;
+            }
         }
 
         if(params.equalsIgnoreCase("version")) {
-            return ViaVersion.check(PreJoin.protocolVersion);
+            if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
+                return ViaVersion.check(PreJoin.protocolVersion);
+            } else {
+                return null;
+            }
         }
 
         return null;

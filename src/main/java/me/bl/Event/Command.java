@@ -30,6 +30,7 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(Warna.color("  &7- &b2). &a/AsAntiVpn reload"));
                     sender.sendMessage(Warna.color("  &7- &b3). &a/AsAntiVpn add <ip>"));
                     sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
+                    sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
                     sender.sendMessage(Warna.color(""));
                     sender.sendMessage(Warna.color("&7-------------------------------"));
                 } else {
@@ -61,6 +62,7 @@ public class Command implements CommandExecutor {
                 sender.sendMessage(Warna.color("  &7- &b2). &a/AsAntiVpn reload"));
                 sender.sendMessage(Warna.color("  &7- &b3). &a/AsAntiVpn add <ip>"));
                 sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
+                sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
                 sender.sendMessage(Warna.color(""));
                 sender.sendMessage(Warna.color("&7-------------------------------"));
             }
