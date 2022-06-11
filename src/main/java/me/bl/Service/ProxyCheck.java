@@ -13,7 +13,7 @@ import java.net.URL;
 public class ProxyCheck {
 
     public static boolean Use(String ip) throws IOException {
-        URL urlv1 = new URL("https://proxycheck.io/v2/" + ip + "?key=" + main.getInstance().getConfig().getString("Api-Key") + "&vpn=1");
+        URL urlv1 = new URL("https://proxycheck.io/v2/" + ip + "?key=" + main.getInstance().getConfig().getString("Key.ProxyCheck") + "&vpn=1");
         BufferedReader readerv1 = new BufferedReader(new InputStreamReader(urlv1.openStream()));
 
         Gson gsonv1 = new Gson();

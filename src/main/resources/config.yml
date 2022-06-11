@@ -2,9 +2,10 @@
 # Complete config docs in https://github.com/BloodLetters/AsAntiVpn-Document/wiki/AsAntiVpn-Setup
 #
 
-Api-Key: ""
-# you must register in https://proxycheck.io
-# and place Api key in above. Example: Api-Key: "adbawdsa-121dwdasacv-12dqw"
+Key:
+  ProxyCheck: ""
+  VpnApi: ""
+  GetIPIntel: "" # Placeyour email
 
 Discord:
   Enable: false
@@ -39,10 +40,15 @@ Blacklist-Country:
 # Must in LowerCase!.
 # if not in LowerCase this options will not working!
 
+Vpn-Priority:
+  1: "ProxyCheck"
+  2: "VpnApi"
+# you can change the vpn priority
+# if you want.
+
 Kick-Algorithm:
   Slow-Join-Tick: 5 # tick. 1 second = 20 tick
-
-
+  Check-Top-2-Down: true
 
 Blacklist:
   Enable: true
@@ -65,7 +71,7 @@ Message:
   Whitelist-player-Message: "%player% Bypass AntiVpn from config!"
   Whitelist-ip-Message: "%player-ip% Bypass AntiVpn from config!"
   Country-Blacklist: "&7[&c!&7] &cSorry your country not allowed in this server!"
-  Max-join-reach: "&7[&eGuard&7] &cReconect after a %time% tick. much connection has detected!"
 
   # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"
+  Api-usgae-Limit: "Max Api usage has reached. Api Reset 00:00 UTC"

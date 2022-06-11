@@ -18,9 +18,6 @@ public class IpApi {
         URL url = new URL("http://ip-api.com/json/" + ip);
         BufferedReader readerv1 = new BufferedReader(new InputStreamReader(url.openStream()));
 
-        Gson gsonv1 = new Gson();
-        JsonObject jsonObjectv1 = gsonv1.fromJson(readerv1, JsonObject.class);
-
         // status code
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         int statusCode = http.getResponseCode();
@@ -31,6 +28,9 @@ public class IpApi {
             main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Api-Limit").replace("%player-ip%", ip)));
 
         } else {
+            // reader
+            Gson gsonv1 = new Gson();
+            JsonObject jsonObjectv1 = gsonv1.fromJson(readerv1, JsonObject.class);
 
             // location
             JsonElement status = jsonObjectv1.get("status");

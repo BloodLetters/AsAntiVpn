@@ -1,7 +1,6 @@
 package me.bl.Dependency.Soft;
 
-import me.bl.Event.PreJoin;
-import me.bl.main;
+import me.bl.Event.OldPreJoin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -26,20 +25,20 @@ public class PlaceholderApi extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if(params.equalsIgnoreCase("country")) {
-            return PreJoin.country;
+            return OldPreJoin.country;
         }
 
         if(params.equalsIgnoreCase("ip")) {
-            return PreJoin.ip;
+            return OldPreJoin.ip;
         }
 
         if(params.equalsIgnoreCase("player")) {
-            return PreJoin.name;
+            return OldPreJoin.name;
         }
 
         if(params.equalsIgnoreCase("protocolversion")) {
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
-                return String.valueOf(PreJoin.protocolVersion);
+                return String.valueOf(OldPreJoin.protocolVersion);
             } else {
                 return null;
             }
@@ -47,7 +46,7 @@ public class PlaceholderApi extends PlaceholderExpansion {
 
         if(params.equalsIgnoreCase("version")) {
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
-                return ViaVersion.check(PreJoin.protocolVersion);
+                return ViaVersion.check(OldPreJoin.protocolVersion);
             } else {
                 return null;
             }

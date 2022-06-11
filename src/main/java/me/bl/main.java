@@ -1,7 +1,7 @@
 package me.bl;
 
 import me.bl.Event.Command;
-import me.bl.Event.PreJoin;
+import me.bl.Event.OldPreJoin;
 import me.bl.Event.TabComplete;
 import me.bl.Utils.VersionChecker;
 import org.bukkit.Bukkit;
@@ -26,8 +26,7 @@ public final class main extends JavaPlugin implements Listener {
         // Plugin startup logic
         getLogger().info("Register All Event");
 
-
-        getServer().getPluginManager().registerEvents(new PreJoin(), this);
+        getServer().getPluginManager().registerEvents(new OldPreJoin(), this);
 
         getCommand("AsAntiVpn").setExecutor(new Command());
         getCommand("AsAntiVpn").setTabCompleter(new TabComplete());
