@@ -1,7 +1,9 @@
 package me.bl.Event;
 
+import me.bl.Service.GetIpIntel;
 import me.bl.Service.IpApi;
 import me.bl.Service.ProxyCheck;
+import me.bl.Service.VpnApi;
 import me.bl.Utils.Blacklist;
 import me.bl.Utils.Warna;
 import me.bl.main;
@@ -11,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -31,6 +34,7 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(Warna.color("  &7- &b3). &a/AsAntiVpn add <ip>"));
                     sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
                     sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
+                    sender.sendMessage(Warna.color("  &7- &b6). &a/AsAntiVpn check <ip>"));
                     sender.sendMessage(Warna.color(""));
                     sender.sendMessage(Warna.color("&7-------------------------------"));
                 } else {
@@ -63,6 +67,7 @@ public class Command implements CommandExecutor {
                 sender.sendMessage(Warna.color("  &7- &b3). &a/AsAntiVpn add <ip>"));
                 sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
                 sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
+                sender.sendMessage(Warna.color("  &7- &b6). &a/AsAntiVpn check <ip>"));
                 sender.sendMessage(Warna.color(""));
                 sender.sendMessage(Warna.color("&7-------------------------------"));
             }
@@ -107,7 +112,7 @@ public class Command implements CommandExecutor {
                         sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Inspect")));
                     } else if (args.length == 2) {
                         Player t = Bukkit.getPlayer(args[1]);
-                        if (t != null){
+                        if (t != null) {
                             try {
                                 String ip = Objects.requireNonNull(t.getAddress()).getHostName();
                                 String country = IpApi.getCountry(ip);
@@ -125,6 +130,26 @@ public class Command implements CommandExecutor {
                             }
                         } else {
                             sender.sendMessage(Warna.color("&7[&c!&7] &cPlayer " + args[1] + " not found!"));
+                        }
+                    }
+                }
+            } else if (args[0].equalsIgnoreCase("check")) {
+                if (sender.hasPermission("asantivpn.check")) {
+                    if (args.length == 1) {
+                        sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Check-ip")));
+                    } else if (args.length == 2) {
+                        sender.sendMessage(Warna.color("&7[DEBUG] Running. pls wait"));
+                        try {
+                            boolean a = ProxyCheck.Use(args[1]);
+                            boolean b = VpnApi.check(args[1]);
+                            boolean c = GetIpIntel.check(args[1]);
+
+                            sender.sendMessage(Warna.color("&7[DEBUG] result"));
+                            sender.sendMessage(Warna.color("&71). ProxyCheck: &6" + a));
+                            sender.sendMessage(Warna.color("&72). VpnApi: &6" + b));
+                            sender.sendMessage(Warna.color("&73). GetIpIntel: &6" + c));
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }

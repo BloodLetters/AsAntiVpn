@@ -2,3 +2,4 @@ asantivpn.use
 asantivpn.reload
 asantivpn.add
 asantivpn.inspect
+asantivpn.check

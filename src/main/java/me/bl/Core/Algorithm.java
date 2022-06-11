@@ -15,6 +15,7 @@ public class Algorithm {
     public static int MJPS = 8;
 
     public static boolean algorithm(String ip) throws IOException {
+
         // Counter 1
         if (counter == 1) {
 
@@ -22,21 +23,22 @@ public class Algorithm {
             counter++;
             return ProxyCheck.Use(ip);
 
-        // Counter 2
+            // Counter 2
         } else if (counter == 2) {
 
             // increment
-            counter = 1;
+            counter++;
             return VpnApi.check(ip);
 
-        // Counter 3
+            // Counter 3
         } else if (ready) {
             ready = false;
             Bukkit.getScheduler().runTaskLater(main.getInstance(), () -> {
                 ready = true;
-            }, (20L * MJPS));
+                }, (20L * MJPS));
 
             // code
+            counter = 1;
             return GetIpIntel.check(ip);
 
         } else {

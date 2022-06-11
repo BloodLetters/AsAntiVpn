@@ -40,15 +40,8 @@ Blacklist-Country:
 # Must in LowerCase!.
 # if not in LowerCase this options will not working!
 
-Vpn-Priority:
-  1: "ProxyCheck"
-  2: "VpnApi"
-# you can change the vpn priority
-# if you want.
-
 Kick-Algorithm:
-  Slow-Join-Tick: 5 # tick. 1 second = 20 tick
-  Check-Top-2-Down: true
+  Slow-Join-Tick: 5
 
 Blacklist:
   Enable: true
@@ -64,6 +57,7 @@ Message:
     Ip-Remove: "&cIncorrect CMD!. example: &a/AsAntiVpn remove 1.1.1.1"
     Ip-Remove-Success: "&aSuccess to remove &e%player-ip%"
   Inspect: "&cIncorrect CMD!. example: &a/AsAntiVpn inspect titidsapi"
+  Check-ip: "&cIncorrect CMD!. example: &a/AsAntiVpn check 1.2.3.4"
 
   # kick message
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
