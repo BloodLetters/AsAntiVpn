@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -51,11 +52,15 @@ public class NewPrejoin implements Listener {
 
                 // check whitelist player
             } else if (main.getInstance().getConfig().getStringList("Whitelist-Player").contains(e.getName())) {
-                main.getInstance().getLogger().info(main.getInstance().getConfig().getString(("Message.Whitelist-player-Message").replace("%player%", e.getName())));
+                String conf = Objects.requireNonNull(main.getInstance().getConfig().getString(("Message.Whitelist-player-Message")));
+                String repl = conf.replace("%player%", e.getName());
+                main.getInstance().getLogger().info(repl);
 
                 // check whitelist ip
             } else if (main.getInstance().getConfig().getStringList("Whitelist-IP").contains(ip)) {
-                main.getInstance().getLogger().info(main.getInstance().getConfig().getString(("Message.Whitelist-player-Message").replace("%player-ip%", e.getAddress().getHostAddress())));
+                String conf = Objects.requireNonNull(main.getInstance().getConfig().getString(("Message.Whitelist-ip-Message")));
+                String repl = conf.replace("%player%", e.getName());
+                main.getInstance().getLogger().info(repl);
 
             } else {
 
@@ -81,7 +86,7 @@ public class NewPrejoin implements Listener {
 
                             // VPN user!
                             main.getInstance().getServer().getLogger().info("[AsAntiVpn] >> Player " + e.getName() + " With ip " + ip + " using VPN");
-                            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Kick-Message"))));
+                            e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Kick-Message").replace("%player%", e.getName()))));
 
                             // save user ip to Blacklist config
                             if (main.getInstance().getConfig().getBoolean("Blacklist.Enable")) {

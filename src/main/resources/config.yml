@@ -59,7 +59,7 @@ Message:
   Inspect: "&cIncorrect CMD!. example: &a/AsAntiVpn inspect titidsapi"
   Check-ip: "&cIncorrect CMD!. example: &a/AsAntiVpn check 1.2.3.4"
 
-  # kick message
+  # kick message.
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
   Whitelist-player-Message: "%player% Bypass AntiVpn from config!"

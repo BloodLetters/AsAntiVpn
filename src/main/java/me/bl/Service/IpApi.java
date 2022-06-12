@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 public class IpApi {
 
@@ -24,8 +25,9 @@ public class IpApi {
 
         // api error
         if (statusCode == 429) {
-
-            main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Api-Limit").replace("%player-ip%", ip)));
+            String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Limit"));
+            String repl = conf.replace("%player-ip%", ip);
+            main.getInstance().getLogger().info(Warna.color(repl));
 
         } else {
             // reader
@@ -44,7 +46,10 @@ public class IpApi {
                 // api limite
             } else {
 
-                main.getInstance().getLogger().info(Warna.color(main.getInstance().getConfig().getString("Api-Limit").replace("%player-ip%", ip)));
+                String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Limit"));
+                String repl = conf.replace("%player-ip%", ip);
+                main.getInstance().getLogger().info(Warna.color(repl));
+
             }
         }
         return null;
