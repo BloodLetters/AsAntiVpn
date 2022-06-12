@@ -32,6 +32,7 @@ public class GetIpIntel {
             JsonElement res = jsonObjectv1.get("result");
             int isProxy = res.getAsInt();
 
+            isCanUse = true;
             return isProxy == 1;
 
         } else {

@@ -17,7 +17,6 @@ public class IpApi {
 
     public static String getCountry(String ip) throws IOException {
         URL url = new URL("http://ip-api.com/json/" + ip);
-        BufferedReader readerv1 = new BufferedReader(new InputStreamReader(url.openStream()));
 
         // status code
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -25,12 +24,16 @@ public class IpApi {
 
         // api error
         if (statusCode == 429) {
-            String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Limit"));
+            String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Api-Limit"));
             String repl = conf.replace("%player-ip%", ip);
             main.getInstance().getLogger().info(Warna.color(repl));
 
+            return "TidakAda";
+
         } else {
             // reader
+            BufferedReader readerv1 = new BufferedReader(new InputStreamReader(url.openStream()));
+
             Gson gsonv1 = new Gson();
             JsonObject jsonObjectv1 = gsonv1.fromJson(readerv1, JsonObject.class);
 

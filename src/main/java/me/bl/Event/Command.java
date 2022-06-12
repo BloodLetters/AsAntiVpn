@@ -1,9 +1,6 @@
 package me.bl.Event;
 
-import me.bl.Service.GetIpIntel;
-import me.bl.Service.IpApi;
-import me.bl.Service.ProxyCheck;
-import me.bl.Service.VpnApi;
+import me.bl.Service.*;
 import me.bl.Utils.Blacklist;
 import me.bl.Utils.Warna;
 import me.bl.main;
@@ -13,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -35,6 +31,7 @@ public class Command implements CommandExecutor {
                     sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
                     sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
                     sender.sendMessage(Warna.color("  &7- &b6). &a/AsAntiVpn check <ip>"));
+                    sender.sendMessage(Warna.color("  &7- &b7). &a/AsAntiVpn info"));
                     sender.sendMessage(Warna.color(""));
                     sender.sendMessage(Warna.color("&7-------------------------------"));
                 } else {
@@ -68,6 +65,7 @@ public class Command implements CommandExecutor {
                 sender.sendMessage(Warna.color("  &7- &b4). &a/AsAntiVpn remove <ip>"));
                 sender.sendMessage(Warna.color("  &7- &b5). &a/AsAntiVpn inspect <player>"));
                 sender.sendMessage(Warna.color("  &7- &b6). &a/AsAntiVpn check <ip>"));
+                sender.sendMessage(Warna.color("  &7- &b7). &a/AsAntiVpn info"));
                 sender.sendMessage(Warna.color(""));
                 sender.sendMessage(Warna.color("&7-------------------------------"));
             }
@@ -144,6 +142,7 @@ public class Command implements CommandExecutor {
                             boolean a = ProxyCheck.Use(args[1]);
                             boolean b = VpnApi.check(args[1]);
                             boolean c = GetIpIntel.check(args[1]);
+                            boolean d = IpHub.check(args[1]);
 
                             // api result
                             sender.sendMessage(Warna.color("&7------------------------------"));
@@ -152,6 +151,7 @@ public class Command implements CommandExecutor {
                             sender.sendMessage(Warna.color("&71). ProxyCheck: &6" + a));
                             sender.sendMessage(Warna.color("&72). VpnApi: &6" + b));
                             sender.sendMessage(Warna.color("&73). GetIpIntel: &6" + c));
+                            sender.sendMessage(Warna.color("&74). IpHub: &6" + d));
                             sender.sendMessage("");
                             if (!GetIpIntel.isCanUse) {
                                 sender.sendMessage(Warna.color("&7[&cERROR&7] &aGetIpIntel: &cError. Replace With ProxyCheck"));
@@ -168,6 +168,13 @@ public class Command implements CommandExecutor {
                             }
 
                             sender.sendMessage(Warna.color("&7[&cERROR&7] &aVpnApi error not found"));
+
+                            if (!IpHub.isCanUse) {
+                                sender.sendMessage(Warna.color("&7[&cERROR7] &aIpHub: &cAre you setup key correctly?, Replace with ProxyCheck"));
+                            } else {
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aIpHub error not found"));
+                            }
+
                             sender.sendMessage("");
 
                             sender.sendMessage(Warna.color("&7------------------------------"));
@@ -176,6 +183,17 @@ public class Command implements CommandExecutor {
                         }
                     }
                 }
+            } else if (args[0].equalsIgnoreCase("info")) {
+                if (sender.hasPermission("asantivpn.total")) {
+                    sender.sendMessage(Warna.color("&7---------------------------"));
+                    sender.sendMessage(Warna.color(""));
+                    sender.sendMessage(Warna.color(" &7- &aTotal Join: &6" + NewPrejoin.totalJoin));
+                    sender.sendMessage(Warna.color(" &7- &aTotal Blocked: &6" + NewPrejoin.totalBlocked));
+                    sender.sendMessage(Warna.color(""));
+                    sender.sendMessage(Warna.color("&7---------------------------"));
+                }
+            } else {
+                sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &cCommand Not Found!"));
             }
         }
         return false;

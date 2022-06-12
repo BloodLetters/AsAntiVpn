@@ -2,7 +2,6 @@ package me.bl;
 
 import me.bl.Event.Command;
 import me.bl.Event.NewPrejoin;
-import me.bl.Event.OldPreJoin;
 import me.bl.Event.TabComplete;
 import me.bl.Utils.VersionChecker;
 import org.bukkit.Bukkit;
@@ -36,7 +35,7 @@ public final class main extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         // Check Blacklist config
-        getLogger().info("Creating Blacklist.yml");
+        getLogger().info("Creating Blacklist.yml and Data.yml");
         createCustomConfig();
 
         // register bStats
@@ -101,6 +100,7 @@ public final class main extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
+
 
     public main() {
         instance = this;

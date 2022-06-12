@@ -35,6 +35,7 @@ public class ProxyCheck {
             JsonElement proxy = test.get("proxy");
             String proxyStatus = proxy.getAsString();
 
+            isCanUse = true;
             return proxyStatus.equalsIgnoreCase("yes");
         } else if (result.equalsIgnoreCase("denied")) {
 

@@ -1,0 +1,8 @@
+# Dont touch this file!
+
+Counter:
+  NonVpnUser:
+    Total: 0
+
+  VpnUser:
+    Total: 0

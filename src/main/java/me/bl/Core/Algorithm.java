@@ -1,6 +1,7 @@
 package me.bl.Core;
 
 import me.bl.Service.GetIpIntel;
+import me.bl.Service.IpHub;
 import me.bl.Service.ProxyCheck;
 import me.bl.Service.VpnApi;
 import me.bl.main;
@@ -21,6 +22,11 @@ public class Algorithm {
 
             // increment
             counter++;
+
+            if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Show-API-name-onjoin")) {
+                main.getInstance().getLogger().info(ip + " Detect using ProxyCheck");
+            }
+
             return ProxyCheck.Use(ip);
 
             // Counter 2
@@ -28,21 +34,45 @@ public class Algorithm {
 
             // increment
             counter++;
+
+            if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Show-API-name-onjoin")) {
+                main.getInstance().getLogger().info(ip + " Detect using VpnApi");
+            }
+
             return VpnApi.check(ip);
 
             // Counter 3
-        } else if (ready) {
-            ready = false;
-            Bukkit.getScheduler().runTaskLater(main.getInstance(), () -> {
-                ready = true;
+        } else if (counter == 3) {
+
+            // increment
+            counter++;
+
+            if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Show-API-name-onjoin")) {
+                main.getInstance().getLogger().info(ip + " Detect using IpHub");
+            }
+
+            return IpHub.check(ip);
+
+            // counter 4
+        } else if (counter == 4) {
+            if (ready) {
+                ready = false;
+                Bukkit.getScheduler().runTaskLater(main.getInstance(), () -> {
+                    ready = true;
                 }, (20L * MJPS));
 
-            // code
-            counter = 1;
-            return GetIpIntel.check(ip);
+                // increment
+                counter = 1;
 
-        } else {
-            counter = 1;
+                if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Show-API-name-onjoin")) {
+                    main.getInstance().getLogger().info(ip + " Detect using GetIpIntel");
+                }
+
+                return GetIpIntel.check(ip);
+
+            } else {
+                counter = 1;
+            }
         }
 
         return false;
