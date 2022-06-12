@@ -96,8 +96,7 @@ public class Command implements CommandExecutor {
                     } else if (args.length == 2) {
                         try {
                             Blacklist.remove(args[1]);
-                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message." +
-                                    "Message.Blacklist.Ip-Remove-Success").replace("%player-ip%", args[1])));
+                            sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] " + main.getInstance().getConfig().getString("Message.Blacklist.Ip-Remove-Success").replace("%player-ip%", args[1])));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -140,14 +139,38 @@ public class Command implements CommandExecutor {
                     } else if (args.length == 2) {
                         sender.sendMessage(Warna.color("&7[DEBUG] Running. pls wait"));
                         try {
+
+                            // api check
                             boolean a = ProxyCheck.Use(args[1]);
                             boolean b = VpnApi.check(args[1]);
                             boolean c = GetIpIntel.check(args[1]);
 
+                            // api result
+                            sender.sendMessage(Warna.color("&7------------------------------"));
+                            sender.sendMessage("");
                             sender.sendMessage(Warna.color("&7[DEBUG] result"));
                             sender.sendMessage(Warna.color("&71). ProxyCheck: &6" + a));
                             sender.sendMessage(Warna.color("&72). VpnApi: &6" + b));
                             sender.sendMessage(Warna.color("&73). GetIpIntel: &6" + c));
+                            sender.sendMessage("");
+                            if (!GetIpIntel.isCanUse) {
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aGetIpIntel: &cError. Replace With ProxyCheck"));
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aGetIpIntel Message: &c" + GetIpIntel.ErrMsg));
+                            } else {
+                                sender.sendMessage(Warna.color("&7[7cERROR] &aGetIpIntel error not found"));
+                            }
+
+                            if (!ProxyCheck.isCanUse) {
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aProxyCheck: &cERROR With API"));
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aProxyCheck Message: &c" + ProxyCheck.ErrMsg));
+                            } else {
+                                sender.sendMessage(Warna.color("&7[&cERROR&7] &aProxyCheck error not found"));
+                            }
+
+                            sender.sendMessage(Warna.color("&7[&cERROR&7] &aVpnApi error not found"));
+                            sender.sendMessage("");
+
+                            sender.sendMessage(Warna.color("&7------------------------------"));
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

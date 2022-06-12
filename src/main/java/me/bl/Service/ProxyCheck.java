@@ -12,6 +12,9 @@ import java.net.URL;
 
 public class ProxyCheck {
 
+    public static String ErrMsg;
+    public static boolean isCanUse = true;
+
     public static boolean Use(String ip) throws IOException {
         URL urlv1 = new URL("https://proxycheck.io/v2/" + ip + "?key=" + main.getInstance().getConfig().getString("Key.ProxyCheck") + "&vpn=1");
         BufferedReader readerv1 = new BufferedReader(new InputStreamReader(urlv1.openStream()));
@@ -37,16 +40,20 @@ public class ProxyCheck {
 
             // warning message
             JsonElement error = jsonObjectv1.get("message");
-            JsonObject message = error.getAsJsonObject();
+            String  message = error.getAsString();
             main.getInstance().getServer().getLogger().severe("[AsAntiVpn] >> Error With Api. Message: " + "'" + message + "'");
+            ErrMsg = message;
+            isCanUse = false;
 
             return false;
         } else if (result.equalsIgnoreCase("error")) {
 
             // error message
             JsonElement error = jsonObjectv1.get("message");
-            JsonObject message = error.getAsJsonObject();
+            String message = error.getAsString();
             main.getInstance().getServer().getLogger().severe("[AsAntiVpn] >> Error With Api. Message: " + "'" + message + "'");
+            ErrMsg = message;
+            isCanUse = false;
 
             return false;
         }

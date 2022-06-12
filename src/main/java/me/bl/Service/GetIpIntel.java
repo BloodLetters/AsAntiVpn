@@ -13,6 +13,7 @@ import java.net.URL;
 public class GetIpIntel {
 
     public static boolean isCanUse = true;
+    public static String ErrMsg;
 
     public static boolean check(String ip) throws IOException {
 
@@ -34,6 +35,10 @@ public class GetIpIntel {
             return isProxy == 1;
 
         } else {
+            isCanUse = false;
+
+            JsonElement res = jsonObjectv1.get("message");
+            ErrMsg = res.getAsString();
 
             return ProxyCheck.Use(ip);
         }
