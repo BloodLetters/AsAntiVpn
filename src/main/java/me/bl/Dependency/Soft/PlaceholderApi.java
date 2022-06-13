@@ -1,9 +1,12 @@
 package me.bl.Dependency.Soft;
 
-import me.bl.Event.OldPreJoin;
+import me.bl.Event.NewPrejoin;
+import me.bl.Service.IpApi;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import java.io.IOException;
 
 public class PlaceholderApi extends PlaceholderExpansion {
 
@@ -19,26 +22,30 @@ public class PlaceholderApi extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "2.1.5";
+        return "${project.version}";
     }
 
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         if(params.equalsIgnoreCase("country")) {
-            return OldPreJoin.country;
+            try {
+                return IpApi.getCountry(NewPrejoin.ip);
+            } catch (IOException e) {
+                return "Error with Api";
+            }
         }
 
         if(params.equalsIgnoreCase("ip")) {
-            return OldPreJoin.ip;
+            return NewPrejoin.ip;
         }
 
         if(params.equalsIgnoreCase("player")) {
-            return OldPreJoin.name;
+            return NewPrejoin.name;
         }
 
         if(params.equalsIgnoreCase("protocolversion")) {
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
-                return String.valueOf(OldPreJoin.protocolVersion);
+                return String.valueOf(NewPrejoin.protocolVersion);
             } else {
                 return null;
             }
@@ -46,7 +53,7 @@ public class PlaceholderApi extends PlaceholderExpansion {
 
         if(params.equalsIgnoreCase("version")) {
             if (Bukkit.getPluginManager().getPlugin("ViaVersion") != null) {
-                return ViaVersion.check(OldPreJoin.protocolVersion);
+                return ViaVersion.check(NewPrejoin.protocolVersion);
             } else {
                 return null;
             }

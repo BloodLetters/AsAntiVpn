@@ -28,7 +28,7 @@ public class IpApi {
             String repl = conf.replace("%player-ip%", ip);
             main.getInstance().getLogger().info(Warna.color(repl));
 
-            return "TidakAda";
+            return "Null";
 
         } else {
             // reader
@@ -53,8 +53,8 @@ public class IpApi {
                 String repl = conf.replace("%player-ip%", ip);
                 main.getInstance().getLogger().info(Warna.color(repl));
 
+                return "Null";
             }
         }
-        return null;
     }
 }

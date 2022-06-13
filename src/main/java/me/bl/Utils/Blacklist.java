@@ -8,6 +8,7 @@ import java.util.List;
 public class Blacklist {
 
     public static void write(String ip) throws IOException {
+
         main.getInstance().getLogger().info(">> Adding " + ip + " to Blacklist!");
         List<String> ips = main.getInstance().getCustomConfig().getStringList("Blacklist");
         ips.add(ip);

@@ -14,9 +14,54 @@ public class Algorithm {
     private static boolean ready = true;
     public static int counter = 1;
     public static int MJPS = 8;
+    public static int getType = main.getInstance().getConfig().getInt("Kick-Algorithm.Use-Algorithm");
 
     public static boolean algorithm(String ip) throws IOException {
 
+
+        if (getType == 1) {
+
+            return TopDown(ip);
+        } else if (getType == 2) {
+
+            return ProxyCheck.Use(ip);
+        } else if (getType == 3) {
+
+            return CheckAll(ip);
+        } else {
+
+            return TopDown(ip);
+        }
+    }
+
+    public static boolean CheckAll(String ip) throws IOException {
+        int d_c = 0;
+
+        boolean a = ProxyCheck.Use(ip);
+        boolean b = VpnApi.check(ip);
+        boolean c = IpHub.check(ip);
+        boolean d = GetIpIntel.check(ip);
+
+        if (a) {
+            d_c++;
+        }
+
+        if (b) {
+            d_c++;
+        }
+
+        if (c) {
+            d_c++;
+        }
+
+        if (d) {
+            d_c++;
+        }
+
+        return d_c >= 2;
+    }
+
+    public static boolean TopDown(String ip) throws IOException {
         // Counter 1
         if (counter == 1) {
 

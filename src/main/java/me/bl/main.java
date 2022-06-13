@@ -1,9 +1,13 @@
 package me.bl;
 
+import me.bl.Core.ConsoleFilter;
 import me.bl.Event.Command;
 import me.bl.Event.NewPrejoin;
 import me.bl.Event.TabComplete;
 import me.bl.Utils.VersionChecker;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Filter;
+import org.apache.logging.log4j.core.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,10 +30,12 @@ public final class main extends JavaPlugin implements Listener {
         // Plugin startup logic
         getLogger().info("Register All Event");
 
+        registerLoggerFilters(new ConsoleFilter());
         getServer().getPluginManager().registerEvents(new NewPrejoin(), this);
 
         getCommand("AsAntiVpn").setExecutor(new Command());
         getCommand("AsAntiVpn").setTabCompleter(new TabComplete());
+
 
         getLogger().info("Saving default config");
         saveDefaultConfig();
@@ -101,6 +107,17 @@ public final class main extends JavaPlugin implements Listener {
         }
     }
 
+    private void registerLoggerFilters(Filter... filters) {
+        org.apache.logging.log4j.Logger rootLogger = LogManager.getRootLogger();
+        if (!(rootLogger instanceof Logger)) {
+            return;
+        }
+
+        Logger logger = (Logger) rootLogger;
+        for (Filter filter : filters) {
+            logger.addFilter(filter);
+        }
+    }
 
     public main() {
         instance = this;

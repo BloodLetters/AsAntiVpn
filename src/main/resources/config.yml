@@ -6,30 +6,23 @@ Key:
   ProxyCheck: ""
   VpnApi: ""
   IpHub: ""
-  GetIPIntel: "" # Placeyour email
+  GetIPIntel: ""
 
 Discord:
   Enable: false
   Link: ""
-# To use this place your Discord Webhook in Link: "Here"
-# to get Discord webhook
-# 1). go to channel integration of your discord channel
-# 2). Click on view Webhook
-# 3). new webhook and click "Copy webhook url"
-# 4). place to Link: "Here"
 
 Whitelist-IP:
   - 127.0.0.1
-# place this you want to whitelist!
 
 Whitelist-Player:
   - derp
   - coolestderp
-# place your staff name in here
 
 Kick-Algorithm:
-  Slow-Join-Tick: 5
+  Use-Algorithm: 1
   Show-API-name-onjoin: false
+# Check the docs for more information!.
 
 Message:
   # permission & Command
@@ -44,10 +37,12 @@ Message:
 
   # kick message.
   Kick-Message: "&7[&c!&7] &cDont use vpn!"
+  Kick-Message-Console: "&7[&eNotify&7] &b%player% &cKicked because detected using VPN"
   Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
+  Blacklist-Console-Message: "%player% tried to join but the ip has been blocked in Blacklist.yml"
   Whitelist-player-Message: "%player% Bypass AntiVpn from config!"
   Whitelist-ip-Message: "%player-ip% Bypass AntiVpn from config!"
-  Country-Blacklist: "&7[&c!&7] &cSorry your country not allowed in this server!"
+
 
   # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"
