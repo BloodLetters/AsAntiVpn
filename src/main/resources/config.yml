@@ -19,9 +19,16 @@ Whitelist-Player:
   - derp
   - coolestderp
 
+Hide-message:
+  Added-to-blacklist: false
+  Hide-blacklist-when-join: false
+
 Kick-Algorithm:
-  Use-Algorithm: 1
+  Use-Algorithm: 3
   Show-API-name-onjoin: false
+  Execute-command-when-kicked:
+    Enable: false
+    Command: "" # executed by console, dont put slash("/")
 # Check the docs for more information!.
 
 Message:

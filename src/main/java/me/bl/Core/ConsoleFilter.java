@@ -20,7 +20,7 @@ public class ConsoleFilter extends AbstractFilter {
 
     @NotNull
     private Result doFilter(@Nullable String message) {
-        if (message == null
+         if (message == null
                 || !message.startsWith("Disconnecting com.mojang.authlib.GameProfile")
                 && !message.startsWith("com.mojang.authlib.GameProfile")) {
             return onMismatch;

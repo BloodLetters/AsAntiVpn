@@ -5,9 +5,10 @@ import me.bl.Core.Algorithm;
 import me.bl.Utils.Blacklist;
 import me.bl.Utils.WebhookHandler;
 import me.bl.main;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 
@@ -29,9 +30,9 @@ public class NewPrejoin implements Listener {
         name = e.getName();
 
         // get protocol version
-        protocolVersion = Via.getAPI().getPlayerVersion(e.getUniqueId());
-
-        // slow join
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            protocolVersion = Via.getAPI().getPlayerVersion(e.getUniqueId());
+        }
 
 
         // check whitelist player
@@ -56,7 +57,10 @@ public class NewPrejoin implements Listener {
 
             String conf = main.getInstance().getConfig().getString("Message.Blacklist-Console-Message");
             String repl = conf.replace("%player%", e.getName());
-            main.getInstance().getLogger().info(ChatColor.translateAlternateColorCodes('&', repl));
+
+            if (!main.getInstance().getConfig().getBoolean("Hide-message.Hide-blacklist-when-join")) {
+                main.getInstance().getLogger().info(ChatColor.translateAlternateColorCodes('&', repl));
+            }
 
         } else {
 
@@ -81,6 +85,13 @@ public class NewPrejoin implements Listener {
 
                     // save user ip to Blacklist config
                     Blacklist.write(ip);
+
+                    // execute command by console
+                    if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Execute-command-when-kicked.Enable")) {
+                        ConsoleCommandSender console = main.getInstance().getServer().getConsoleSender();
+                        String command = main.getInstance().getConfig().getString("Kick-Algorithm.Execute-command-when-kicked.Command");
+                        Bukkit.dispatchCommand(console, command);
+                    }
 
                     // Discord webhook
                     if (main.getInstance().getConfig().getBoolean("Discord.Enable")) {

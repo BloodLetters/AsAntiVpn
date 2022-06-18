@@ -4,6 +4,7 @@ import me.bl.Service.GetIpIntel;
 import me.bl.Service.IpHub;
 import me.bl.Service.ProxyCheck;
 import me.bl.Service.VpnApi;
+import me.bl.Utils.Warna;
 import me.bl.main;
 import org.bukkit.Bukkit;
 
@@ -24,13 +25,28 @@ public class Algorithm {
             return TopDown(ip);
         } else if (getType == 2) {
 
-            return ProxyCheck.Use(ip);
+            return CheckAll(ip);
         } else if (getType == 3) {
 
-            return CheckAll(ip);
-        } else {
+            return Check1by1(ip);
+        } else if (getType == 4) {
 
+            return ProxyCheck.Use(ip);
+        } else {
             return TopDown(ip);
+        }
+    }
+
+    public static boolean Check1by1(String ip) throws IOException {
+        if (ProxyCheck.isCanUse) {
+            return ProxyCheck.Use(ip);
+        } else if (VpnApi.isCanuse) {
+            return VpnApi.check(ip);
+        } else if (IpHub.isCanUse) {
+            return IpHub.check(ip);
+        } else {
+            main.getInstance().getLogger().severe(Warna.color(main.getInstance().getConfig().getString("Message.Api-usgae-Limit")));
+            return false;
         }
     }
 
