@@ -6,7 +6,10 @@ Key:
   ProxyCheck: ""
   VpnApi: ""
   IpHub: ""
+  IpHunter: ""
   GetIPIntel: ""
+# You must set up this correctly
+# to use this plugin
 
 Discord:
   Enable: false
@@ -17,11 +20,13 @@ Whitelist-IP:
 
 Whitelist-Player:
   - derp
-  - coolestderp
 
 Hide-message:
   Added-to-blacklist: false
   Hide-blacklist-when-join: false
+
+On-Join:
+  Show-Player-Country: false
 
 Kick-Algorithm:
   Use-Algorithm: 3
@@ -54,3 +59,6 @@ Message:
   # api error message
   Api-Limit: "&7Api cant detect player ip %player-ip% because got limit. wait 1 minute until reset"
   Api-usgae-Limit: "Max Api usage has reached. Api Reset 00:00 UTC"
+
+  # On-join message
+  Broadcast-country: "&e%player% &bJoin From &e%country%"

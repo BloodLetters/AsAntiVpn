@@ -23,6 +23,8 @@ public class NewPrejoin implements Listener {
     public static int protocolVersion;
     public static int totalBlocked = 0;
     public static int totalJoin = 0;
+    // public static int totalBlocked = SaveData.loadVPN();
+    // public static int totalJoin = SaveData.loadNonVpn();
 
     @EventHandler
     public void onPreJoin(AsyncPlayerPreLoginEvent e) throws IOException {

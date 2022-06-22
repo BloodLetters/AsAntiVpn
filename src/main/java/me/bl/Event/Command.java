@@ -2,6 +2,7 @@ package me.bl.Event;
 
 import me.bl.Service.*;
 import me.bl.Utils.Blacklist;
+import me.bl.Utils.SaveData;
 import me.bl.Utils.Warna;
 import me.bl.main;
 import org.bukkit.Bukkit;
@@ -45,6 +46,10 @@ public class Command implements CommandExecutor {
                     try {
                         main.getInstance().getCustomConfig().load(main.getInstance().getCustomConfigFile());
                         main.getInstance().reloadConfig();
+                        SaveData.saveVPN();
+                        SaveData.saveNonVpn();
+                        NewPrejoin.totalBlocked = 0;
+                        NewPrejoin.totalJoin = 0;
                         sender.sendMessage(Warna.color("&7[&eAsAntiVpn&7] &aPlugin reloaded!"));
                     } catch (IOException | InvalidConfigurationException e) {
                         e.printStackTrace();
@@ -187,8 +192,13 @@ public class Command implements CommandExecutor {
                 if (sender.hasPermission("asantivpn.total")) {
                     sender.sendMessage(Warna.color("&7---------------------------"));
                     sender.sendMessage(Warna.color(""));
+                    sender.sendMessage(Warna.color(" &7- &bCurrent"));
                     sender.sendMessage(Warna.color(" &7- &aTotal Join: &6" + NewPrejoin.totalJoin));
                     sender.sendMessage(Warna.color(" &7- &aTotal Blocked: &6" + NewPrejoin.totalBlocked));
+                    sender.sendMessage("");
+                    sender.sendMessage(Warna.color(" &7- &bStorage"));
+                    sender.sendMessage(Warna.color(" &7- &aTotal Join: &6" + SaveData.loadNonVpn()));
+                    sender.sendMessage(Warna.color(" &7- &aTotal Blocked: &6" + SaveData.loadVPN()));
                     sender.sendMessage(Warna.color(""));
                     sender.sendMessage(Warna.color("&7---------------------------"));
                 }

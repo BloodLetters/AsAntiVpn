@@ -2,8 +2,10 @@ package me.bl;
 
 import me.bl.Core.ConsoleFilter;
 import me.bl.Event.Command;
+import me.bl.Event.NewJoin;
 import me.bl.Event.NewPrejoin;
 import me.bl.Event.TabComplete;
+import me.bl.Utils.SaveData;
 import me.bl.Utils.VersionChecker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Filter;
@@ -29,9 +31,7 @@ public final class main extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("Register All Event");
-
         registerLoggerFilters(new ConsoleFilter());
-        getServer().getPluginManager().registerEvents(new NewPrejoin(), this);
 
         getCommand("AsAntiVpn").setExecutor(new Command());
         getCommand("AsAntiVpn").setTabCompleter(new TabComplete());
@@ -41,7 +41,7 @@ public final class main extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         // Check Blacklist config
-        getLogger().info("Creating Blacklist.yml and Data.yml");
+        getLogger().info("Creating Blacklist.yml");
         createCustomConfig();
 
         // register bStats
@@ -77,11 +77,34 @@ public final class main extends JavaPlugin implements Listener {
         } else {
             getLogger().info("Softdepency ViaVersion not detected!");
         }
+
+        getServer().getPluginManager().registerEvents(new NewPrejoin(), this);
+        getServer().getPluginManager().registerEvents(new NewJoin(), this);
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            try {
+                getLogger().info("Starting saving Blacklist.yml");
+                SaveData.saveNonVpn();
+                SaveData.saveVPN();
+                NewPrejoin.totalBlocked = 0;
+                NewPrejoin.totalJoin = 0;
+            } catch (IOException e) {
+                getLogger().severe("Error while AutoSave Blacklist.yml, Message: " + e.getMessage());
+            }
+        }, (20L * 60) * 5);
+
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
+        getLogger().info("Saving Data");
+        try {
+            SaveData.saveVPN();
+            SaveData.saveNonVpn();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public File getCustomConfigFile() {

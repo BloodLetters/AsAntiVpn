@@ -6,7 +6,7 @@
 
     <groupId>me.bl.main</groupId>
     <artifactId>AsAntiVpn</artifactId>
-    <version>2.7.3-Beta</version>
+    <version>2.7.6-Beta</version>
     <packaging>jar</packaging>
 
     <name>AsAntiVpn</name>

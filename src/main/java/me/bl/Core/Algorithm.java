@@ -1,9 +1,6 @@
 package me.bl.Core;
 
-import me.bl.Service.GetIpIntel;
-import me.bl.Service.IpHub;
-import me.bl.Service.ProxyCheck;
-import me.bl.Service.VpnApi;
+import me.bl.Service.*;
 import me.bl.Utils.Warna;
 import me.bl.main;
 import org.bukkit.Bukkit;
@@ -44,6 +41,8 @@ public class Algorithm {
             return VpnApi.check(ip);
         } else if (IpHub.isCanUse) {
             return IpHub.check(ip);
+        } else if (IpHunter.isCanUse) {
+            return IpHunter.check(ip);
         } else {
             main.getInstance().getLogger().severe(Warna.color(main.getInstance().getConfig().getString("Message.Api-usgae-Limit")));
             return false;
@@ -57,6 +56,7 @@ public class Algorithm {
         boolean b = VpnApi.check(ip);
         boolean c = IpHub.check(ip);
         boolean d = GetIpIntel.check(ip);
+        boolean e = IpHunter.check(ip);
 
         if (a) {
             d_c++;
@@ -72,6 +72,10 @@ public class Algorithm {
 
         if (d) {
             d_c++;
+        }
+
+        if (e) {
+           d_c++;
         }
 
         return d_c >= 2;
@@ -114,8 +118,19 @@ public class Algorithm {
 
             return IpHub.check(ip);
 
-            // counter 4
         } else if (counter == 4) {
+
+            // increment
+            counter++;
+
+            if (main.getInstance().getConfig().getBoolean("Kick-Algorithm.Show-API-name-onjoin")) {
+                main.getInstance().getLogger().info(ip + " Detect using IpHunter");
+            }
+
+            return IpHunter.check(ip);
+
+            // counter 4
+        } else if (counter == 5) {
             if (ready) {
                 ready = false;
                 Bukkit.getScheduler().runTaskLater(main.getInstance(), () -> {

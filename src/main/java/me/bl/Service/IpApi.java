@@ -31,29 +31,42 @@ public class IpApi {
             return "Null";
 
         } else {
-            // reader
-            BufferedReader readerv1 = new BufferedReader(new InputStreamReader(url.openStream()));
 
-            Gson gsonv1 = new Gson();
-            JsonObject jsonObjectv1 = gsonv1.fromJson(readerv1, JsonObject.class);
+            if (200 <= statusCode && statusCode <= 299) {
 
-            // location
-            JsonElement status = jsonObjectv1.get("status");
-            String result = status.getAsString();
+                // reader
+                BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 
-            if (result.equalsIgnoreCase("success")) {
+                Gson gsonv1 = new Gson();
+                JsonObject jsonObject = gsonv1.fromJson(reader, JsonObject.class);
 
-                JsonElement raw = jsonObjectv1.get("country");
-                return raw.getAsString();
+                // location
+                JsonElement status = jsonObject.get("status");
+                String result = status.getAsString();
 
-                // api limite
+                if (result.equalsIgnoreCase("success")) {
+
+                    JsonElement raw = jsonObject.get("country");
+                    return raw.getAsString();
+
+
+                } else {
+
+                    String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Limit"));
+                    String repl = conf.replace("%player-ip%", ip);
+                    main.getInstance().getLogger().info(Warna.color(repl));
+
+                    return "Null";
+                }
+
             } else {
 
-                String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Api-Limit"));
+                String conf = Objects.requireNonNull(main.getInstance().getConfig().getString("Message.Api-Limit"));
                 String repl = conf.replace("%player-ip%", ip);
                 main.getInstance().getLogger().info(Warna.color(repl));
 
                 return "Null";
+
             }
         }
     }
