@@ -1,0 +1,6 @@
+name: AsAntiVpn
+version: '${project.version}'
+main: me.ashesh.AsAntiVpn
+api-version: '1.20'
+authors: [Ashesh]
+description: Lightweight AntiVpn For Spigot
