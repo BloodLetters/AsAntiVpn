@@ -1,8 +1,0 @@
-Block-Amount:
-  Vpn: 0
-  Normal: 0
-# dont touch this.
-
-Blacklist:
-  - 127.0.0.1
-
