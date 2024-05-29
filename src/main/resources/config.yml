@@ -1,0 +1,7 @@
+key:
+  ProxyCheck: ""
+
+# ProxyCheck: Using ProxyCheck As Main Check
+# VPN-API: Using ProxyCheck As Main Check
+# RANDOM: Every pre join player will using random API
+Algorithm: "RANDOM"
