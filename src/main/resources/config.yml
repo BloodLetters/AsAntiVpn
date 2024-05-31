@@ -1,7 +1,41 @@
+# 0 Normal
+# 1 VPN
+# 2 API Fail
+# 3 Error
+
+
+# Key required service you need register to his website
+# to getting key
 key:
   ProxyCheck: ""
+  VpnAPI: ""
+  IpHub: ""
 
-# ProxyCheck: Using ProxyCheck As Main Check
-# VPN-API: Using ProxyCheck As Main Check
-# RANDOM: Every pre join player will using random API
-Algorithm: "RANDOM"
+# KEY: Using key required service / 1k - 2k Request / 1 minute
+# FREE: using free service 30 request / 1 minute
+Algorithm: "FREE"
+
+# Whitelist spesific IP Address
+Whitelist-IP:
+  - 127.0.0.1
+
+# Whitelist player by name
+Whitelist-Player:
+  - Derp
+
+Message:
+  NoPermission: "&7[&c!&7] &cSorry you dont have accesss"
+  Blacklist:
+    Ip-Add: "&cIncorrect CMD!. example: &a/AsAntiVpn add 1.1.1.1"
+    Ip-Add-Success: "&aSuccess to add &e%player-ip%"
+    Ip-Remove: "&cIncorrect CMD!. example: &a/AsAntiVpn remove 1.1.1.1"
+    Ip-Remove-Success: "&aSuccess to remove &e%player-ip%"
+  Inspect: "&cIncorrect CMD!. example: &a/AsAntiVpn inspect titidsapi"
+  Check-ip: "&cIncorrect CMD!. example: &a/AsAntiVpn check 1.2.3.4"
+
+  Kick-Message: "&7[&c!&7] &cDont use vpn!"
+  Kick-Message-Console: "&7[&eNotify&7] &b%player% &cKicked because detected using VPN"
+  Blacklist-Message: "&7[&c!&7] &cSorry your ip has blocked from this server!"
+  Blacklist-Console-Message: "%player% tried to join but the ip has been blocked in Blacklist.yml"
+  Whitelist-player-Message: "%player% Bypass AntiVpn from config!"
+  Whitelist-ip-Message: "%player-ip% Bypass AntiVpn from config!"
