@@ -7,6 +7,11 @@
 # Key required service you need register to his website
 # to getting key
 key:
+  # Free
+  GetIpintel: "" # Insert your valid email in here
+  IPAPI: "None" # Dont insert anything here
+
+  # KEY
   ProxyCheck: ""
   VpnAPI: ""
   IpHub: ""

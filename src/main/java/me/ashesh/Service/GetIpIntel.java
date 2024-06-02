@@ -1,8 +1,9 @@
 package me.ashesh.Service;
+
 import me.ashesh.utils.Request;
 import org.json.JSONObject;
 
-public class IpAPI {
+public class GetIpIntel {
 
     public static int req(String ip) {
         int rescode = 0;
@@ -11,10 +12,10 @@ public class IpAPI {
             String req = Request.http(ip);
             if (!req.equals("Error")) {
                 JSONObject obj = new JSONObject(req);
-                if (obj.get("status") == "fail") {
+                if (obj.get("status") == "error") {
                     rescode = 2;
                 } else {
-                    if (obj.get("proxy") == "true") {
+                    if (obj.get("result") == "1") {
                         rescode = 1;
                     }
                 }
@@ -28,8 +29,4 @@ public class IpAPI {
         return rescode;
     }
 
-    public static void main(String[] args) {
-        // String res = Request.http("http://ip-api.com/json/1.1.1.1?fields=status,message,country,countryCode,region,regionName,city,mobile,proxy,query");
-        // System.out.println(req("http://ip-api.com/json/37.60.48.2?fields=status,message,country,countryCode,region,regionName,city,mobile,proxy,query"));
-    }
 }
