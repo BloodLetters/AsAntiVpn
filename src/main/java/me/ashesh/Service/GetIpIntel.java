@@ -22,7 +22,7 @@ public class GetIpIntel {
             } else {
                 rescode = 3;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             rescode = 3;
         }
 

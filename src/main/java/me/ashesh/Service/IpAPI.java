@@ -27,9 +27,4 @@ public class IpAPI {
 
         return rescode;
     }
-
-    public static void main(String[] args) {
-        // String res = Request.http("http://ip-api.com/json/1.1.1.1?fields=status,message,country,countryCode,region,regionName,city,mobile,proxy,query");
-        // System.out.println(req("http://ip-api.com/json/37.60.48.2?fields=status,message,country,countryCode,region,regionName,city,mobile,proxy,query"));
-    }
 }
