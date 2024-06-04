@@ -18,7 +18,7 @@ public class joinEvent implements Listener {
     public void onPreJoin(AsyncPlayerPreLoginEvent e) {
         String addr = e.getAddress().getHostAddress();
         try {
-            if(Algorithm.request(Objects.requireNonNull(ins.getConfig().getString("Algorithm")), addr)) {
+            if(Algorithm.request(Objects.requireNonNull(ins.getConfig().getString("Algorithm.type")), addr)) {
                 Bukkit.getLogger().info("[AsAntiVpn] " + e.getName() + " Join with VPN");
                 e.disallow(PlayerPreLoginEvent.Result.KICK_OTHER, ins.getConfig().getString("Kick-Messager"));
             } else {

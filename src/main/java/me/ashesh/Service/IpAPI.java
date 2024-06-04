@@ -8,7 +8,7 @@ public class IpAPI {
         int rescode = 0;
 
         try {
-            String req = Request.http(ip);
+            String req = Request.http("http://ip-api.com/json/" + ip + "?fields=status,message,country,countryCode,region,regionName,city,mobile,proxy,query");
             if (!req.equals("Error")) {
                 JSONObject obj = new JSONObject(req);
                 if (obj.get("status") == "fail") {

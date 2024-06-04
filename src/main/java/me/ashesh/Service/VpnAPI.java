@@ -4,9 +4,7 @@ import me.ashesh.AsAntiVpn;
 import me.ashesh.utils.Request;
 import org.json.JSONObject;
 
-import java.util.Objects;
-
-public class ProxyCheck {
+public class VpnAPI {
 
     public static AsAntiVpn ins = AsAntiVpn.getInstance();
 
@@ -14,14 +12,14 @@ public class ProxyCheck {
         int rescode = 0;
 
         try {
-            String req = Request.http("https://proxycheck.io/v2/" + ip + "?key=" + ins.getConfig().getString("key.ProxyCheck") + "&risk=1&vpn=1");
+            String req = Request.http("https://vpnapi.io/api/" + ip + "?key=" + ins.getConfig().getString("key.VpnAPI"));
             JSONObject obj = new JSONObject(req);
             if (!req.equals("Error")) {
-                if (obj.get("status") == "fail") {
+                if (obj.has("message")) {
                     rescode = 2;
                 } else {
-                    JSONObject security = obj.getJSONObject(ip);
-                    if (security.get("proxy") == "yes") {
+                    JSONObject security = obj.getJSONObject("security");
+                    if (security.getBoolean("vpn") || security.getBoolean("proxy")) {
                         rescode = 1;
                     }
                 }

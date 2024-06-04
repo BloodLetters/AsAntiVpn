@@ -18,7 +18,13 @@ key:
 
 # KEY: Using key required service / 1k - 2k Request / 1 minute
 # FREE: using free service 30 request / 1 minute
-Algorithm: "FREE"
+Algorithm:
+  type: "FREE"
+
+  # TOPDOWN | Top to day method / using 1:1 services
+  # PROXYCHECK | Proxycheck Only services Method
+  # VPNAPI | VpnAPI Only services method
+  method: "TOPDOWN" # Only Work with "KEY" type only
 
 # Whitelist spesific IP Address
 Whitelist-IP:

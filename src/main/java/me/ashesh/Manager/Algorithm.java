@@ -1,11 +1,16 @@
 package me.ashesh.Manager;
 
+import me.ashesh.AsAntiVpn;
 import me.ashesh.Service.GetIpIntel;
 import me.ashesh.Service.IpAPI;
+import me.ashesh.Service.ProxyCheck;
 import org.bukkit.Bukkit;
+
+import java.util.Objects;
 
 public class Algorithm {
 
+    public static AsAntiVpn ins = AsAntiVpn.getInstance();
     public static int getIpintel = 0;
     public static int IPAPI = 0;
 
@@ -27,7 +32,7 @@ public class Algorithm {
                     if (r == 3) {
                         throw new Exception("GetIpIntel Services error");
                     }
-                }  else if(IPAPI <= 30) {
+                } else if (IPAPI <= 30) {
                     int r = IpAPI.req(ip);
                     if (r == 1) {
                         res = true;
@@ -45,9 +50,29 @@ public class Algorithm {
                 }
 
             case "KEY":
-                System.out.println("Dawg");
-        }
+                // Top-Down method
+                if (Objects.equals(ins.getConfig().getString("Algorithm.method"), "method")) {
 
+                    // ProxyCheck
+                    int r = ProxyCheck.req(ip, ins.getConfig().getString("Key.ProxyCheck"));
+                    if (r == 1) {
+                        res = true;
+                    }
+
+                    if (r == 2) {
+                        throw new Exception("ProxyCheck Services error fail to request data");
+                    }
+
+                    if (r == 3) {
+                        throw new Exception("ProxyCheck Services error");
+                    }
+
+                    // VPnAPI
+                    // TODO: ADD Services
+                }
+
+                // Continue
+        }
         return res;
     }
 }
